@@ -1,0 +1,10 @@
+django+postgreについて
+postgreに仮のデータを書き込む
+
+Views.pyで使えそうなサンプルを見つける
+postgresに接続する
+それをグラフに表示する
+
+toggle_buttonを作る
+
+
