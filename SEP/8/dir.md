@@ -25,3 +25,9 @@ T2/
 |-- db.sqlite3  (SQLiteを使用する場合)
 |-- requirements.txt
 |-- .gitignore
+
+
+
+
+$.get('/occupancy_rate/', {time_scale: timeScale},null,'json')
+,null,'json'を追加したらなおった
