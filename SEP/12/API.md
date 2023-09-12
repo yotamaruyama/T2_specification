@@ -1,0 +1,5 @@
+DB PLC間の通信JSON
+
+https://qiita.com/COOLMAGICPRODU1/items/31513295943763365915
+
+
