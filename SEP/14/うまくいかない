@@ -3,3 +3,8 @@ t2@t2-System-Product-Name:~/containers$ docker compose -f docker-compose.prod.ym
 could not find /home/t2/containers/containers/postgres: stat /home/t2/containers/containers/postgres: no such file or directory
 
 となっている
+
+sudo systemctl start docker
+ができない
+https://zenn.dev/derbuihan/articles/a1e636d29e1b51
+を参考にしたらできるかも
