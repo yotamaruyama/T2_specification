@@ -1,0 +1,28 @@
+t2@t2-System-Product-Name:~/containers$ docker compose -f docker-compose.prod.yml build 
+[+] Building 0.0s (0/0)                                                                                                
+could not find /home/t2/containers/containers/postgres: stat /home/t2/containers/containers/postgres: no such file or directory
+
+となっている
+
+sudo systemctl start docker
+ができない
+https://zenn.dev/derbuihan/articles/a1e636d29e1b51
+を参考にしたらできるかも
+
+
+docker と　docker-composeをインストールした
+
+ymlファイルのパスにエラーが出ていたので修正した
+
+t2@t2-System-Product-Name:~/containers$ docker-compose -f docker-compose.prod.yml build
+
+の状態のパスを通す必要があるからyml、docekrfileのパスを通す必要がある
+
+コンテナがビルドされた
+
+appが起動しないので設定を見直す
+
+https://qiita.com/tamitarai/items/89835f6f63775155bc7c#:~:text=NGINX%E3%81%8CDjango%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%99%E7%94%A8%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%BD%9C%E6%88%90%202.,Django%E3%82%92%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%99%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%B8%E3%81%AE%E3%82%B7%E3%83%B3%E3%83%9C%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%83%AA%E3%83%B3%E3%82%AF%E4%BD%9C%E6%88%90%203.%20NGINX%E3%81%A8gunicorn%E3%82%92%E5%86%8D%E8%B5%B7%E5%8B%95
+
+gunicronのイメージがつかめる。
+
