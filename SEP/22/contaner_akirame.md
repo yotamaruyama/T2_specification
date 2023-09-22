@@ -59,3 +59,30 @@ services:
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"
 }
+
+
+ttyオプションについて
+tty: trueはコンテナ内でTTY（端末）を確保するためのオプションです。開発環境でのデバッグや対話的な作業を容易にするためによく使われますが、本番環境で必要かどうかはケースによります。多くの場合、本番環境ではこのオプションは不要です。実際には、本番環境でアプリケーションを稼働させる場合、GunicornやuWSGIなどのWSGIサーバがその役割を果たすため、TTYは通常不要です。
+
+root@a9013a118b75:/workspaces/dango_sample_app# django-admin startproject T2 .
+
+はい、その通りです。`web/`ディレクトリ内にDjangoプロジェクトやアプリケーションを作成すると、そのディレクトリが`docker-compose.yml`で設定されている`web`サービスのコンテナ内で`/app`としてマウントされます。これによって、コンテナ内でDjangoプロジェクトやアプリケーションが適切に動作するようになります。
+
+具体的な手順としては、以下のように行えます。
+
+1. `web/`ディレクトリに移動します。
+    ```bash
+    cd web
+    ```
+   
+2. そのディレクトリ内でDjangoプロジェクトを作成します。
+    ```bash
+    django-admin startproject my_project
+    ```
+
+3. 必要に応じて、Djangoアプリケーションも作成します。
+    ```bash
+    python manage.py startapp my_app
+    ```
+
+この構成により、`docker-compose up`コマンドを実行すると、`web`サービスのコンテナ内でDjangoプロジェクトとアプリケーションが`/app`ディレクトリにマウントされ、`gunicorn`などのWSGIサーバーがそれをホストします。
