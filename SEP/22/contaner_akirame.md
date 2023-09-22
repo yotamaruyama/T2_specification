@@ -105,3 +105,35 @@ django_sample_app/
 │   └── dockerfile
 │   └── conf.d/
 │         └──default.conf
+
+
+ build: 
+      context: .
+      dockerfile: containes/django/Dockerfile
+に設定すると
+django_prod/containers/django/dockerfile
+が
+django_prod/docker-compose.prod.ymlから見えるということでしょうか？？
+
+ChatGPT
+docker-compose.prod.yml ファイルが django_prod ディレクトリ内にある場合、以下のようなディレクトリ構造を想定しています。
+
+Copy code
+django_prod/
+├── containers/
+│   └── django/
+│       └── Dockerfile
+└── docker-compose.prod.yml
+この状況で docker-compose.prod.yml 内に
+
+yaml
+Copy code
+build: 
+  context: .
+  dockerfile: containers/django/Dockerfile
+と設定されている場合、context: . は docker-compose.prod.yml がある django_prod ディレクトリをビルドコンテキスト（作業ディレクトリ）として指定します。そのため、dockerfile: containers/django/Dockerfile はこのビルドコンテキストを基に相対パスで指定されています。
+
+結論として、はい、django_prod/containers/django/Dockerfile は django_prod/docker-compose.prod.yml から見える設定になっています。この設定により、Docker は django_prod ディレクトリをビルドコンテキストとして、その中の containers/django/Dockerfile を用いてイメージをビルドします。
+
+https://qiita.com/grv2688/items/47fe1a145b2ca0319287
+これで一応動いた
