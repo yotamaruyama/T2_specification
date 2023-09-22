@@ -30,3 +30,32 @@ services:
   ...
 パスとボリューム: Dockerfileや設定ファイルがある場所を正確に指定する必要があります。例えば、COPY containers/nginx/conf.d/default.conf /etc/nginx/conf.d/default.confのcontainers/nginx/conf.d/default.confはDockerfileがある場所からの相対パスまたは絶対パスでなければなりません。
 これらの点を確認・調整した後、全体の設定が適切であれば問題なく動作するはずです。
+
+.devcontainer.jsonを変更した
+
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+{
+	"name": "Existing Dockerfile",
+	"build": {
+		// Sets the run context to one level up instead of the .devcontainer folder.
+		"context": "..",
+		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+		"dockerfile": "../web/Dockerfile"
+	}
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Uncomment the next line to run commands after the container is created.
+	// "postCreateCommand": "cat /etc/os-release",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "devcontainer"
+}

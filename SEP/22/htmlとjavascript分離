@@ -1,0 +1,85 @@
+
+もちろん、HTMLとJavaScriptを分けるために以下のようにファイルを編成できます。
+
+1. HTMLファイル（templates/occupancy_rate.html）
+html
+Copy code
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Machine Operational Rate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <script src="{% static 'js/my_script.js' %}"></script> <!-- 追加 -->
+</head>
+<body>
+
+<h1>Machine Operational Rate</h1>
+
+<select id="time_scale" title="Select Time Scale">
+    <option value="hour">Hour</option>
+    <option value="day">Day</option>
+    <option value="month">Month</option>
+</select>
+
+<canvas id="myChart" width="400" height="200"></canvas>
+
+</body>
+</html>
+
+
+2. JavaScriptファイル（static/js/my_script.js）
+javascript
+Copy code
+console.log("Script is running");  // デバッグ用
+
+let myChart;
+let ctx = document.getElementById('myChart').getContext('2d');
+myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Operational Rate (%)',
+            data: [],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100 // as it's a rate in percentage
+            }
+        }
+    }
+});
+
+function updateChart(timeScale) {
+    console.log("Sending GET request with timeScale:", timeScale);  // デバッグ用
+
+    $.get('/occupancy_rate/', {time_scale: timeScale}, null, 'json')
+        .done(function(data) {
+            console.log("GET request succeeded:", JSON.stringify(data));  // デバッグ用
+
+            myChart.data.labels = data.labels;
+            myChart.data.datasets[0].data = data.values;
+            myChart.update();
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.log("GET request failed:", textStatus, errorThrown);  // デバッグ用
+        });
+}
+
+$(document).ready(function(){
+    updateChart('hour');
+    
+    $('#time_scale').change(function(){
+        const timeScale = $(this).val();
+        updateChart(timeScale);
+    });
+});
+このようにすることで、HTMLとJavaScriptがきれいに分けられ、それぞれの役割が明確になります。そして、HTMLファイル内でJavaScriptファイルをDjangoの{% static 'js/my_script.js' %}タグを用いて参照しています。これによって、JavaScriptのコードもDjangoプロジェクト内で一元管理できます。

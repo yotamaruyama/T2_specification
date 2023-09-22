@@ -80,3 +80,17 @@ my_project/
 └── db/
     ├── Dockerfile
     └── init.sql  # 初期データをロードするSQLファイル
+
+
+django_sample_app/
+├──.devcontainer/
+└── devcontainer.json
+├── docker-compose.yml
+├── web/
+│   └── dockerfile
+├── nginx/
+│   └── dockerfile
+│   └── conf.d/
+│         └──default.conf
+└── db/
+    ├── Dockerfile
