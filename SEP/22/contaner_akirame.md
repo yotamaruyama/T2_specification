@@ -86,3 +86,22 @@ root@a9013a118b75:/workspaces/dango_sample_app# django-admin startproject T2 .
     ```
 
 この構成により、`docker-compose up`コマンドを実行すると、`web`サービスのコンテナ内でDjangoプロジェクトとアプリケーションが`/app`ディレクトリにマウントされ、`gunicorn`などのWSGIサーバーがそれをホストします。
+
+現状のディレクトリ構成は以下のようになります。
+django_sample_app/
+├──.devcontainer/
+└── devcontainer.json
+├── docker-compose.yml
+├── web/
+│   └── dockerfile
+│   └──manage.py
+│   └── T2/
+│       └──__init__.py
+│       └──asgi.py
+│       └──settings.py
+│       └──urls.py
+│       └──wsgi.py
+├── nginx/
+│   └── dockerfile
+│   └── conf.d/
+│         └──default.conf

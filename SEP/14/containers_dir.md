@@ -92,5 +92,22 @@ django_sample_app/
 │   └── dockerfile
 │   └── conf.d/
 │         └──default.conf
-└── db/
-    ├── Dockerfile
+
+
+django_sample_app/
+├──.devcontainer/
+└── devcontainer.json
+├── docker-compose.yml
+├── web/
+│   └── dockerfile
+│   └──manage.py
+│   └── T2/
+│       └──__init__.py
+│       └──asgi.py
+│       └──settings.py
+│       └──urls.py
+│       └──wsgi.py
+├── nginx/
+│   └── dockerfile
+│   └── conf.d/
+│         └──default.conf
