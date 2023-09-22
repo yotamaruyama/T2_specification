@@ -67,3 +67,16 @@
 ├── requirements.txt
 └── static
 │   │── templates/occupancy_rate
+
+
+
+9/22
+my_project/
+├── docker-compose.yml
+├── web/
+│   └── ...
+├── nginx/
+│   └── ...
+└── db/
+    ├── Dockerfile
+    └── init.sql  # 初期データをロードするSQLファイル
