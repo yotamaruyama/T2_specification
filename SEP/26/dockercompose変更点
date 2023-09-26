@@ -1,0 +1,58 @@
+version: '3'
+
+volumes:
+  gunicorn:
+    driver: local
+#以下を追加
+  postgres_data:
+  pgadmin4_data:
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django
+    ports:
+      - '8000:8000'
+    volumes:
+      - './web:/code'
+      #- './web/static:/static' # 不要だったかもしれません。。。
+      - gunicorn:/var/run/gunicorn
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - '80:80'
+    volumes:
+      - './nginx/conf:/etc/nginx/conf.d'
+      - './web/static:/static'
+      - gunicorn:/var/run/gunicorn
+    depends_on:
+      - web
+
+  db:
+    image: postgres
+    volumes:
+        - postgres_data:/var/lib/postgresql/data
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: django_sample
+以下を追加
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+        - 8888:80
+    volumes:
+        - pgadmin4_data:/var/lib/pgadmin
+    environment:
+        PGADMIN_DEFAULT_EMAIL: xxxxxxxxxx@gmail.com
+        PGADMIN_DEFAULT_PASSWORD: password
+    depends_on:
+      - db
